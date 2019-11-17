@@ -6,14 +6,14 @@ with open("README.md", "r") as fh:
 
 setup(
     name = 'domain-connect-dyndns',
-    version = '0.0.5',
+    version = '0.0.5-2',
     description = 'Python client library for Dynamic DNS using Domain Connect',
     license = 'MIT',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author = 'Andreea Dima',
-    author_email = 'andreea.dima@1and1.ro',
-    url="https://github.com/Domain-Connect/DomainConnectDDNS-Python",
+    author = 'HeinrichAD',
+    #author_email = 'andreea.dima@1and1.ro',
+    url="https://github.com/HeinrichAD/DomainConnectDDNS-Python",
     classifiers = [
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 2',

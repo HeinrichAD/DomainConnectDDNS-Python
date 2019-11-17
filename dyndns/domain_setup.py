@@ -10,7 +10,7 @@ import webbrowser
 dc = DomainConnect()
 
 
-def main(domain, settings='settings.txt'):
+def main(domain, settings='settings.txt', code=None, prevent_browser_auto_open=False):
     # get Domain Connect config
     try:
         config = dc.get_domain_config(domain)
@@ -39,8 +39,10 @@ def main(domain, settings='settings.txt'):
             redirect_uri='https://dynamicdns.domainconnect.org/ddnscode'
         )
 
-    webbrowser.open(context.asyncConsentUrl, autoraise=True)
-    code = input("Please open\n{}\nand provide us the access code:".format(context.asyncConsentUrl))
+    if not code:
+        if prevent_browser_auto_open:
+            webbrowser.open(context.asyncConsentUrl, autoraise=True)
+        code = input("Please open\n{}\nand provide us the access code:".format(context.asyncConsentUrl))
 
     tries = 1
     while not code and tries < 4:

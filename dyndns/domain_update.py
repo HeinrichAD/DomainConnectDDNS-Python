@@ -9,7 +9,7 @@ from domainconnect import DomainConnect, DomainConnectException, DomainConnectAs
 dc = DomainConnect()
 
 
-def main(domain, settings='settings.txt', ignore_previous_ip=False):
+def main(domain, settings='settings.txt', ignore_previous_ip=False, public_ip=None):
     # get local settings for domain
     try:
         with open(settings, "r") as settings_file:
@@ -43,13 +43,14 @@ def main(domain, settings='settings.txt', ignore_previous_ip=False):
         except Exception:
             print("No A record found for domain {}".format(domain))
 
-    # get public ip
-    response = requests.get("https://api.ipify.org", params={'format': 'json'})
-    if response.status_code != 200:
-        return "Could not discover public IP."
-    public_ip = response.json().get('ip', None)
     if not public_ip:
-        return "Could not discover public IP."
+        # get public ip
+        response = requests.get("https://api.ipify.org", params={'format': 'json'})
+        if response.status_code != 200:
+            return "Could not discover public IP."
+        public_ip = response.json().get('ip', None)
+        if not public_ip:
+            return "Could not discover public IP."
 
     print("New IP: {}".format(public_ip))
     if not ignore_previous_ip and ip and str(ip) == str(public_ip):
